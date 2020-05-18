@@ -16,24 +16,24 @@ namespace WorldEdit.Commands.Biomes
         public override int Vines => -1;
         public override int Thorn => -1;
 
-        public override byte DirtWall => 0;
-        public override byte DirtWallUnsafe => 0;
-        public override byte CaveWall => 0;
-        public override byte DirtWallUnsafe1 => 0;
-        public override byte DirtWallUnsafe2 => 0;
-        public override byte DirtWallUnsafe3 => 0;
-        public override byte DirtWallUnsafe4 => 0;
-        public override byte StoneWall => 0;
-        public override byte HardenedSandWall => 0;
-        public override byte SandstoneWall => 0;
-        public override byte GrassWall => 0;
-        public override byte GrassWallUnsafe => 0;
-        public override byte FlowerWall => 0;
-        public override byte FlowerWallUnsafe => 0;
+        public override ushort DirtWall => 0;
+        public override ushort DirtWallUnsafe => 0;
+        public override ushort CaveWall => 0;
+        public override ushort DirtWallUnsafe1 => 0;
+        public override ushort DirtWallUnsafe2 => 0;
+        public override ushort DirtWallUnsafe3 => 0;
+        public override ushort DirtWallUnsafe4 => 0;
+        public override ushort StoneWall => 0;
+        public override ushort HardenedSandWall => 0;
+        public override ushort SandstoneWall => 0;
+        public override ushort GrassWall => 0;
+        public override ushort GrassWallUnsafe => 0;
+        public override ushort FlowerWall => 0;
+        public override ushort FlowerWallUnsafe => 0;
 
-        public override byte CaveWall1 => 0;
-        public override byte CaveWall2 => 0;
-        public override byte CaveWall3 => 0;
-        public override byte CaveWall4 => 0;
+        public override ushort CaveWall1 => 0;
+        public override ushort CaveWall2 => 0;
+        public override ushort CaveWall3 => 0;
+        public override ushort CaveWall4 => 0;
     }
 }
