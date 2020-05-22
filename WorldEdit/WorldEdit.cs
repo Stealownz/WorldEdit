@@ -82,7 +82,11 @@ namespace WorldEdit
             Tools.MAX_UNDOS = Config.MaxUndoCount;
             MagicWand.MaxPointCount = Config.MagicWandTileLimit;
             e?.Player?.SendSuccessMessage("[WorldEdit] Successfully reloaded config.");
-        }
+			if (!Directory.Exists(Config.SchematicFolderPath))
+			{
+				Directory.CreateDirectory(Config.SchematicFolderPath);
+			}
+		}
 
 		private void OnGetData(GetDataEventArgs e)
 		{
@@ -277,7 +281,8 @@ namespace WorldEdit
 				Directory.CreateDirectory(WorldEditFolderName);
 				File.Create(lockFilePath).Close();
 			}
-            OnReload(null);
+
+			OnReload(null);
 
             #region Commands
             TShockAPI.Commands.ChatCommands.Add(new Command("worldedit.admin", EditConfig, "/worldedit", "/wedit")
@@ -1979,7 +1984,7 @@ namespace WorldEdit
 							return;
 						}
 
-						string path = Path.Combine("worldedit", string.Format(fileFormat, e.Parameters[2]));
+						string path = Path.Combine(Config.SchematicFolderPath, string.Format(fileFormat, e.Parameters[2]));
 
 						if (!File.Exists(path))
 						{
@@ -2003,8 +2008,8 @@ namespace WorldEdit
 						if (!PaginationTools.TryParsePageNumber(e.Parameters, 1, e.Player, out pageNumber))
 							return;
 
-						var schematics = from s in Directory.EnumerateFiles("worldedit", string.Format(fileFormat, "*"))
-											select s.Substring(20, s.Length - 24);
+						var schematics = from s in Directory.EnumerateFiles(Config.SchematicFolderPath, string.Format(fileFormat, "*"))
+										 select Path.GetFileNameWithoutExtension(s).Substring(10);
 
 						PaginationTools.SendPage(e.Player, pageNumber, PaginationTools.BuildLinesFromTerms(schematics),
 							new PaginationTools.Settings
@@ -2028,7 +2033,7 @@ namespace WorldEdit
 							return;
 						}
 
-						var path = Path.Combine("worldedit", string.Format(fileFormat, e.Parameters[1]));
+						var path = Path.Combine(Config.SchematicFolderPath, string.Format(fileFormat, e.Parameters[1]));
 
 						var clipboard = Tools.GetClipboardPath(e.Player.User.ID);
 
@@ -2102,7 +2107,7 @@ namespace WorldEdit
                         if (Config.StartSchematicNamesWithCreatorUserID)
                             name = $"{e.Player.User.ID}-{name}";
 
-						var path = Path.Combine("worldedit", string.Format(fileFormat, name));
+						var path = Path.Combine(Config.SchematicFolderPath, string.Format(fileFormat, name));
 
                         if (File.Exists(path))
                         {
@@ -2164,7 +2169,7 @@ namespace WorldEdit
                         if (Config.StartSchematicNamesWithCreatorUserID)
                             name = $"{e.Player.User.ID}-{name}";
 
-                        var path = Path.Combine("worldedit", string.Format(fileFormat, name));
+                        var path = Path.Combine(Config.SchematicFolderPath, string.Format(fileFormat, name));
 
                         if (File.Exists(path))
                         {
@@ -2200,7 +2205,7 @@ namespace WorldEdit
                             return;
                         }
 
-                        string path = Path.Combine("worldedit", string.Format(fileFormat, e.Parameters[1]));
+                        string path = Path.Combine(Config.SchematicFolderPath, string.Format(fileFormat, e.Parameters[1]));
                         if (!File.Exists(path))
                         {
                             e.Player.SendErrorMessage("Invalid schematic '{0}'!", e.Parameters[1]);
