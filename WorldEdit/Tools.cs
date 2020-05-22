@@ -186,7 +186,7 @@ namespace WorldEdit
                     tile.frameY = reader.ReadInt16();
                 }
             }
-            tile.wall = reader.ReadByte();
+            tile.wall = reader.ReadUInt16();
             tile.liquid = reader.ReadByte();
             return tile;
         }
