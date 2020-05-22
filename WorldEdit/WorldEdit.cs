@@ -668,7 +668,7 @@ namespace WorldEdit
 
 		private void QueueCallback(object context)
 		{
-			while (!Netplay.disconnect)
+			while (!Netplay.Disconnect)
 			{
                 WECommand command = null;
 				try
