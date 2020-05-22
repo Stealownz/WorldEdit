@@ -622,9 +622,9 @@ namespace WorldEdit
 
 			foreach (var fi in typeof(TileID).GetFields())
 			{
-        if (!fi.IsLiteral || fi.Name == "Count") {
-          continue;
-        }
+        			if (!fi.IsLiteral || fi.Name == "Count") {
+          				continue;
+        			}
 
 				string name = fi.Name;
 				var sb = new StringBuilder();
@@ -639,14 +639,14 @@ namespace WorldEdit
 			}
 			#endregion
 			#region Walls
-      Walls.Add("air", 0);
+      			Walls.Add("air", 0);
 
-      foreach (var fi in typeof(WallID).GetFields())
+      			foreach (var fi in typeof(WallID).GetFields())
 			{
-        if (!fi.IsLiteral || fi.Name == "None" || fi.Name == "Count")
-        {
-          continue;
-        }
+        			if (!fi.IsLiteral || fi.Name == "None" || fi.Name == "Count")
+        			{
+         				continue;
+        			}
 
 				string name = fi.Name;
 				var sb = new StringBuilder();
