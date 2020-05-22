@@ -622,6 +622,10 @@ namespace WorldEdit
 
 			foreach (var fi in typeof(TileID).GetFields())
 			{
+        if (!fi.IsLiteral || fi.Name == "Count") {
+          continue;
+        }
+
 				string name = fi.Name;
 				var sb = new StringBuilder();
 				for (int i = 0; i < name.Length; i++)
@@ -635,10 +639,15 @@ namespace WorldEdit
 			}
 			#endregion
 			#region Walls
-			Walls.Add("air", 0);
+      Walls.Add("air", 0);
 
-			foreach (var fi in typeof(WallID).GetFields())
+      foreach (var fi in typeof(WallID).GetFields())
 			{
+        if (!fi.IsLiteral || fi.Name == "None" || fi.Name == "Count")
+        {
+          continue;
+        }
+
 				string name = fi.Name;
 				var sb = new StringBuilder();
 				for (int i = 0; i < name.Length; i++)
@@ -648,7 +657,7 @@ namespace WorldEdit
 					else
 						sb.Append(name[i]);
 				}
-				Walls.Add(sb.ToString(1, sb.Length - 1), (byte)fi.GetValue(null));
+				Walls.Add(sb.ToString(1, sb.Length - 1), (ushort)fi.GetValue(null));
 			}
 			#endregion
 			#region Slopes
