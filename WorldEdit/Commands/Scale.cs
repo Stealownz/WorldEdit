@@ -20,7 +20,7 @@ namespace WorldEdit.Commands
 
 		public override void Execute()
 		{
-			var clipboardPath = Tools.GetClipboardPath(plr.User.ID);
+			var clipboardPath = Tools.GetClipboardPath(plr.Account.ID);
 
 			var data = Tools.LoadWorldData(clipboardPath);
 

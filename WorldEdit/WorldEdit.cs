@@ -622,6 +622,10 @@ namespace WorldEdit
 
 			foreach (var fi in typeof(TileID).GetFields())
 			{
+        			if (!fi.IsLiteral || fi.Name == "Count") {
+          				continue;
+        			}
+
 				string name = fi.Name;
 				var sb = new StringBuilder();
 				for (int i = 0; i < name.Length; i++)
@@ -635,10 +639,15 @@ namespace WorldEdit
 			}
 			#endregion
 			#region Walls
-			Walls.Add("air", 0);
+      			Walls.Add("air", 0);
 
-			foreach (var fi in typeof(WallID).GetFields())
+      			foreach (var fi in typeof(WallID).GetFields())
 			{
+        			if (!fi.IsLiteral || fi.Name == "None" || fi.Name == "Count")
+        			{
+         				continue;
+        			}
+
 				string name = fi.Name;
 				var sb = new StringBuilder();
 				for (int i = 0; i < name.Length; i++)
@@ -648,7 +657,7 @@ namespace WorldEdit
 					else
 						sb.Append(name[i]);
 				}
-				Walls.Add(sb.ToString(1, sb.Length - 1), (byte)fi.GetValue(null));
+				Walls.Add(sb.ToString(1, sb.Length - 1), (ushort)fi.GetValue(null));
 			}
 			#endregion
 			#region Slopes
@@ -668,7 +677,7 @@ namespace WorldEdit
 
 		private void QueueCallback(object context)
 		{
-			while (!Netplay.disconnect)
+			while (!Netplay.Disconnect)
 			{
                 WECommand command = null;
 				try
@@ -948,7 +957,7 @@ namespace WorldEdit
 
 		private void Cut(CommandArgs e)
 		{
-            if (e.Player.User == null)
+            if (e.Player.Account == null)
             {
                 e.Player.SendErrorMessage("You have to be logged in to use this command.");
                 return;
@@ -1112,14 +1121,14 @@ namespace WorldEdit
 
 		private void Flip(CommandArgs e)
         {
-            if (e.Player.User == null)
+            if (e.Player.Account == null)
             {
                 e.Player.SendErrorMessage("You have to be logged in to use this command.");
                 return;
             }
             if (e.Parameters.Count != 1)
 				e.Player.SendErrorMessage("Invalid syntax! Proper syntax: //flip <direction>");
-			else if (!Tools.HasClipboard(e.Player.User.ID))
+			else if (!Tools.HasClipboard(e.Player.Account.ID))
 				e.Player.SendErrorMessage("Invalid clipboard!");
 			else
 			{
@@ -1471,7 +1480,7 @@ namespace WorldEdit
 
 		private void Paste(CommandArgs e)
         {
-            if (e.Player.User == null)
+            if (e.Player.Account == null)
             {
                 e.Player.SendErrorMessage("You have to be logged in to use this command.");
                 return;
@@ -1480,7 +1489,7 @@ namespace WorldEdit
 			e.Player.SendInfoMessage("X: {0}, Y: {1}", info.X, info.Y);
 			if (info.X == -1 || info.Y == -1)
 				e.Player.SendErrorMessage("Invalid first point!");
-			else if (!Tools.HasClipboard(e.Player.User.ID))
+			else if (!Tools.HasClipboard(e.Player.Account.ID))
 				e.Player.SendErrorMessage("Invalid clipboard!");
 			else
 			{
@@ -1529,13 +1538,13 @@ namespace WorldEdit
                         }
                     }
                 }
-                _commandQueue.Add(new Paste(info.X, info.Y, e.Player, Tools.GetClipboardPath(e.Player.User.ID), alignment, expression, mode_MainBlocks, true));
+                _commandQueue.Add(new Paste(info.X, info.Y, e.Player, Tools.GetClipboardPath(e.Player.Account.ID), alignment, expression, mode_MainBlocks, true));
 			}
         }
 
         private void SPaste(CommandArgs e)
         {
-            if (e.Player.User == null)
+            if (e.Player.Account == null)
             {
                 e.Player.SendErrorMessage("You have to be logged in to use this command.");
                 return;
@@ -1544,7 +1553,7 @@ namespace WorldEdit
             e.Player.SendInfoMessage("X: {0}, Y: {1}", info.X, info.Y);
             if (info.X == -1 || info.Y == -1)
                 e.Player.SendErrorMessage("Invalid first point!");
-            else if (!Tools.HasClipboard(e.Player.User.ID))
+            else if (!Tools.HasClipboard(e.Player.Account.ID))
                 e.Player.SendErrorMessage("Invalid clipboard!");
             else if (e.Parameters.Count < 1)
                 e.Player.SendErrorMessage("Invalid syntax! Proper syntax: //spaste [alignment] [-flag -flag ...] [=> boolean expr...]");
@@ -1682,7 +1691,7 @@ namespace WorldEdit
 
 		private void Redo(CommandArgs e)
         {
-            if (e.Player.User == null)
+            if (e.Player.Account == null)
             {
                 e.Player.SendErrorMessage("You have to be logged in to use this command.");
                 return;
@@ -1694,7 +1703,7 @@ namespace WorldEdit
 			}
 
 			int steps = 1;
-			int ID = e.Player.User.ID;
+			int ID = e.Player.Account.ID;
 			if (e.Parameters.Count > 0 && (!int.TryParse(e.Parameters[0], out steps) || steps <= 0))
 				e.Player.SendErrorMessage("Invalid redo steps '{0}'!", e.Parameters[0]);
 			else
@@ -1706,13 +1715,13 @@ namespace WorldEdit
                         e.Player.SendErrorMessage("You do not have permission to redo other player's actions.");
                         return;
                     }
-                    User User = TShock.Users.GetUserByName(e.Parameters[1]);
-					if (User == null)
+                    UserAccount Account = TShock.UserAccounts.GetUserAccountByName(e.Parameters[1]);
+					if (Account == null)
 					{
 						e.Player.SendErrorMessage("Invalid account name!");
 						return;
 					}
-					ID = User.ID;
+					ID = Account.ID;
 				}
 			}
 			_commandQueue.Add(new Redo(e.Player, ID, steps));
@@ -1914,7 +1923,7 @@ namespace WorldEdit
 
 		private void Rotate(CommandArgs e)
         {
-            if (e.Player.User == null)
+            if (e.Player.Account == null)
             {
                 e.Player.SendErrorMessage("You have to be logged in to use this command.");
                 return;
@@ -1924,7 +1933,7 @@ namespace WorldEdit
 				e.Player.SendErrorMessage("Invalid syntax! Proper syntax: //rotate <angle>");
 				return;
 			}
-			if (!Tools.HasClipboard(e.Player.User.ID))
+			if (!Tools.HasClipboard(e.Player.Account.ID))
 			{
 				e.Player.SendErrorMessage("Invalid clipboard!");
 				return;
@@ -1939,7 +1948,7 @@ namespace WorldEdit
 
 		private void Scale(CommandArgs e)
         {
-            if (e.Player.User == null)
+            if (e.Player.Account == null)
             {
                 e.Player.SendErrorMessage("You have to be logged in to use this command.");
                 return;
@@ -1949,7 +1958,7 @@ namespace WorldEdit
 				e.Player.SendErrorMessage("Invalid syntax! Proper syntax: //scale <+/-> <amount>");
 				return;
 			}
-			if (!Tools.HasClipboard(e.Player.User.ID))
+			if (!Tools.HasClipboard(e.Player.Account.ID))
 			{
 				e.Player.SendErrorMessage("Invalid clipboard!");
 				return;
@@ -2022,7 +2031,7 @@ namespace WorldEdit
 				case "l":
 				case "load":
                     {
-                        if (e.Player.User == null)
+                        if (e.Player.Account == null)
                         {
                             e.Player.SendErrorMessage("You have to be logged in to use this command.");
                             return;
@@ -2035,7 +2044,7 @@ namespace WorldEdit
 
 						var path = Path.Combine(Config.SchematicFolderPath, string.Format(fileFormat, e.Parameters[1]));
 
-						var clipboard = Tools.GetClipboardPath(e.Player.User.ID);
+						var clipboard = Tools.GetClipboardPath(e.Player.Account.ID);
 
 						if (File.Exists(path))
 						{
@@ -2053,7 +2062,7 @@ namespace WorldEdit
 				case "s":
 				case "save":
                     {
-                        if (e.Player.User == null)
+                        if (e.Player.Account == null)
                         {
                             e.Player.SendErrorMessage("You have to be logged in to use this command.");
                             return;
@@ -2068,15 +2077,15 @@ namespace WorldEdit
                         {
                             string uname = (e.Parameters.Count > 2)
                                                 ? e.Parameters[2]
-                                                : e.Player.User.Name;
-                            User user = TShock.Users.GetUserByName(uname);
-                            if (user == null)
+                                                : e.Player.Account.Name;
+                            UserAccount account = TShock.UserAccounts.GetUserAccountByName(uname);
+                            if (account == null)
                             {
                                 e.Player.SendErrorMessage($"Invalid user '{uname}'!");
                                 return;
                             }
 
-                            e.Player.SendSuccessMessage($"{user.Name}'s ID: {user.ID}.");
+                            e.Player.SendSuccessMessage($"{account.Name}'s ID: {account.ID}.");
                             return;
                         }
 
@@ -2089,7 +2098,7 @@ namespace WorldEdit
 							return;
 						}
 
-						string clipboard = Tools.GetClipboardPath(e.Player.User.ID);
+						string clipboard = Tools.GetClipboardPath(e.Player.Account.ID);
 
 						if (!File.Exists(clipboard))
 						{
@@ -2105,7 +2114,7 @@ namespace WorldEdit
 						}
 
                         if (Config.StartSchematicNamesWithCreatorUserID)
-                            name = $"{e.Player.User.ID}-{name}";
+                            name = $"{e.Player.Account.ID}-{name}";
 
 						var path = Path.Combine(Config.SchematicFolderPath, string.Format(fileFormat, name));
 
@@ -2132,7 +2141,7 @@ namespace WorldEdit
                 case "cs":
                 case "copysave":
                     {
-                        if (e.Player.User == null)
+                        if (e.Player.Account == null)
                         {
                             e.Player.SendErrorMessage("You have to be logged in to use this command.");
                             return;
@@ -2167,7 +2176,7 @@ namespace WorldEdit
                         }
 
                         if (Config.StartSchematicNamesWithCreatorUserID)
-                            name = $"{e.Player.User.ID}-{name}";
+                            name = $"{e.Player.Account.ID}-{name}";
 
                         var path = Path.Combine(Config.SchematicFolderPath, string.Format(fileFormat, name));
 
@@ -2690,13 +2699,13 @@ namespace WorldEdit
                 case "c":
                 case "clipboard":
                     {
-                        if (e.Player.User == null)
+                        if (e.Player.Account == null)
                         {
                             e.Player.SendErrorMessage("You have to be logged in to use this command.");
                             return;
                         }
 
-                        User user = e.Player.User;
+                        UserAccount account = e.Player.Account;
                         if (e.Parameters.Count > 1)
                         {
                             if (!e.Player.HasPermission("worldedit.usage.otheraccounts"))
@@ -2704,22 +2713,22 @@ namespace WorldEdit
                                 e.Player.SendErrorMessage("You do not have permission to view other player's clipboards.");
                                 return;
                             }
-                            user = TShock.Users.GetUserByName(e.Parameters[1]);
-                            if (user == null)
+                            account = TShock.UserAccounts.GetUserAccountByName(e.Parameters[1]);
+                            if (account == null)
                             {
                                 e.Player.SendErrorMessage("Invalid account name!");
                                 return;
                             }
                         }
 
-                        if (!Tools.HasClipboard(user.ID))
+                        if (!Tools.HasClipboard(account.ID))
                         {
-                            e.Player.SendErrorMessage($"{user.Name} doesn't have a clipboard.");
+                            e.Player.SendErrorMessage($"{account.Name} doesn't have a clipboard.");
                             return;
                         }
 
-                        WorldSectionData data = Tools.LoadWorldData(Tools.GetClipboardPath(user.ID));
-                        e.Player.SendSuccessMessage($"{user.Name}'s clipboard size: " +
+                        WorldSectionData data = Tools.LoadWorldData(Tools.GetClipboardPath(account.ID));
+                        e.Player.SendSuccessMessage($"{account.Name}'s clipboard size: " +
                             $"{data.Tiles.GetLength(0) - 1}x{data.Tiles.GetLength(1) - 1}.");
                         break;
                     }
@@ -2952,7 +2961,7 @@ namespace WorldEdit
 
 		private void Undo(CommandArgs e)
         {
-            if (e.Player.User == null)
+            if (e.Player.Account == null)
             {
                 e.Player.SendErrorMessage("You have to be logged in to use this command.");
                 return;
@@ -2964,7 +2973,7 @@ namespace WorldEdit
 			}
 
 			int steps = 1;
-			int ID = e.Player.User.ID;
+			int ID = e.Player.Account.ID;
 			if (e.Parameters.Count > 0 && (!int.TryParse(e.Parameters[0], out steps) || steps <= 0))
 				e.Player.SendErrorMessage("Invalid undo steps '{0}'!", e.Parameters[0]);
 			else if (e.Parameters.Count > 1)
@@ -2974,7 +2983,7 @@ namespace WorldEdit
                     e.Player.SendErrorMessage("You do not have permission to undo other player's actions.");
                     return;
                 }
-                User User = TShock.Users.GetUserByName(e.Parameters[1]);
+                UserAccount User = TShock.UserAccounts.GetUserAccountByName(e.Parameters[1]);
 				if (User == null)
 				{
 					e.Player.SendErrorMessage("Invalid account name!");

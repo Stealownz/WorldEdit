@@ -25,27 +25,27 @@ namespace WorldEdit.Commands.Biomes
             TallPlants, Vines, Thorn
         };
 
-        public virtual byte DirtWall { get; }
-        public virtual byte StoneWall { get; }
-        public virtual byte HardenedSandWall { get; }
-        public virtual byte SandstoneWall { get; }
-        public virtual byte GrassWall { get; }
-        public virtual byte GrassWallUnsafe { get; }
-        public virtual byte FlowerWall { get; }
-        public virtual byte FlowerWallUnsafe { get; }
+        public virtual ushort DirtWall { get; }
+        public virtual ushort StoneWall { get; }
+        public virtual ushort HardenedSandWall { get; }
+        public virtual ushort SandstoneWall { get; }
+        public virtual ushort GrassWall { get; }
+        public virtual ushort GrassWallUnsafe { get; }
+        public virtual ushort FlowerWall { get; }
+        public virtual ushort FlowerWallUnsafe { get; }
         
-        public virtual byte CaveWall1 { get; }
-        public virtual byte CaveWall2 { get; }
-        public virtual byte CaveWall3 { get; }
-        public virtual byte CaveWall4 { get; }
-        public virtual byte DirtWallUnsafe { get; }
-        public virtual byte DirtWallUnsafe1 { get; }
-        public virtual byte DirtWallUnsafe2 { get; }
-        public virtual byte DirtWallUnsafe3 { get; }
-        public virtual byte DirtWallUnsafe4 { get; }
-        public virtual byte CaveWall { get; }
+        public virtual ushort CaveWall1 { get; }
+        public virtual ushort CaveWall2 { get; }
+        public virtual ushort CaveWall3 { get; }
+        public virtual ushort CaveWall4 { get; }
+        public virtual ushort DirtWallUnsafe { get; }
+        public virtual ushort DirtWallUnsafe1 { get; }
+        public virtual ushort DirtWallUnsafe2 { get; }
+        public virtual ushort DirtWallUnsafe3 { get; }
+        public virtual ushort DirtWallUnsafe4 { get; }
+        public virtual ushort CaveWall { get; }
 
-        public byte[] Walls => new byte[]
+        public ushort[] Walls => new ushort[]
         {
             DirtWall, StoneWall, HardenedSandWall, SandstoneWall,
             GrassWall, GrassWallUnsafe, FlowerWall,

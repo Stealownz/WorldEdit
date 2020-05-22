@@ -10,7 +10,7 @@ namespace WorldEdit.Commands
 		private static ushort[] grassTiles = new[]
 		{
 			TileID.CorruptGrass,
-			TileID.FleshGrass,
+			TileID.CrimsonGrass,
 			TileID.Grass,
 			TileID.HallowedGrass,
 			TileID.JungleGrass,

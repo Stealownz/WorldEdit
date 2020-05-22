@@ -16,24 +16,24 @@ namespace WorldEdit.Commands.Biomes
         public override int Vines => -1;
         public override int Thorn => -1;
 
-        public override byte DirtWall => WallID.SnowWallUnsafe;
-        public override byte DirtWallUnsafe => WallID.SnowWallUnsafe;
-        public override byte CaveWall => WallID.SnowWallUnsafe;
-        public override byte DirtWallUnsafe1 => WallID.SnowWallUnsafe;
-        public override byte DirtWallUnsafe2 => WallID.SnowWallUnsafe;
-        public override byte DirtWallUnsafe3 => WallID.SnowWallUnsafe;
-        public override byte DirtWallUnsafe4 => WallID.SnowWallUnsafe;
-        public override byte StoneWall => WallID.IceUnsafe;
-        public override byte HardenedSandWall => WallID.IceUnsafe;
-        public override byte SandstoneWall => WallID.IceUnsafe;
-        public override byte GrassWall => WallID.IceUnsafe;
-        public override byte GrassWallUnsafe => WallID.IceUnsafe;
-        public override byte FlowerWall => WallID.IceUnsafe;
-        public override byte FlowerWallUnsafe => WallID.IceUnsafe;
+        public override ushort DirtWall => WallID.SnowWallUnsafe;
+        public override ushort DirtWallUnsafe => WallID.SnowWallUnsafe;
+        public override ushort CaveWall => WallID.SnowWallUnsafe;
+        public override ushort DirtWallUnsafe1 => WallID.SnowWallUnsafe;
+        public override ushort DirtWallUnsafe2 => WallID.SnowWallUnsafe;
+        public override ushort DirtWallUnsafe3 => WallID.SnowWallUnsafe;
+        public override ushort DirtWallUnsafe4 => WallID.SnowWallUnsafe;
+        public override ushort StoneWall => WallID.IceUnsafe;
+        public override ushort HardenedSandWall => WallID.IceUnsafe;
+        public override ushort SandstoneWall => WallID.IceUnsafe;
+        public override ushort GrassWall => WallID.IceUnsafe;
+        public override ushort GrassWallUnsafe => WallID.IceUnsafe;
+        public override ushort FlowerWall => WallID.IceUnsafe;
+        public override ushort FlowerWallUnsafe => WallID.IceUnsafe;
 
-        public override byte CaveWall1 => 0;
-        public override byte CaveWall2 => 0;
-        public override byte CaveWall3 => 0;
-        public override byte CaveWall4 => 0;
+        public override ushort CaveWall1 => 0;
+        public override ushort CaveWall2 => 0;
+        public override ushort CaveWall3 => 0;
+        public override ushort CaveWall4 => 0;
     }
 }
