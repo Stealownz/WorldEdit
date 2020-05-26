@@ -9,6 +9,7 @@ namespace WorldEdit
         public int MaxUndoCount = 50;
         public bool DisableUndoSystemForUnrealPlayers = false;
         public bool StartSchematicNamesWithCreatorUserID = false;
+		public string SchematicFolderPath = "schematics";
 
         public static Config Read(string ConfigFile) =>
             !File.Exists(ConfigFile)

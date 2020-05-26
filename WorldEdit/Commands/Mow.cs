@@ -18,7 +18,7 @@ namespace WorldEdit.Commands
 			TileID.JunglePlants,
 			TileID.JunglePlants2,
 			TileID.MushroomPlants,
-			TileID.CrimsonPlants,
+			TileID.CrimsonGrass,
 			TileID.CorruptThorns,
 			TileID.CrimsonThorns,
 			TileID.JungleThorns,
