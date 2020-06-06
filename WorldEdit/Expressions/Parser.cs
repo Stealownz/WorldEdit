@@ -246,14 +246,14 @@ namespace WorldEdit.Expressions
                 case "nwiregreen":
                 case "ngreenwire":
                     return test = t => !t.wire3();
-                case "wire4":
-				case "wireyellow":
-				case "yellowwire":
-					return test = t => t.wire4();
-                case "nwire4":
-                case "nwireyellow":
-                case "nyellowwire":
-                    return test = t => !t.wire4();
+    //            case "wire4":
+				//case "wireyellow":
+				//case "yellowwire":
+				//	return test = t => t.wire4();
+    //            case "nwire4":
+    //            case "nwireyellow":
+    //            case "nyellowwire":
+    //                return test = t => !t.wire4();
                 case "a":
 				case "active":
 					return test = t => t.active() && !t.inActive();

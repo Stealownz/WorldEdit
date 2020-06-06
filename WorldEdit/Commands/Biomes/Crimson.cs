@@ -4,17 +4,17 @@ namespace WorldEdit.Commands.Biomes
     public class Crimson : Biome
     {
         public override int Dirt => TileID.Dirt;
-        public override int Grass => TileID.CrimsonGrass;
+        public override int Grass => TileID.FleshGrass;
         public override int Stone => TileID.Crimstone;
         public override int Ice => TileID.FleshIce;
         public override int Clay => TileID.ClayBlock;
         public override int Sand => TileID.Crimsand;
         public override int HardenedSand => TileID.CrimsonHardenedSand;
         public override int Sandstone => TileID.CrimsonSandstone;
-        public override int Plants => TileID.CrimsonPlants;
+        public override int Plants => TileID.CorruptPlants;
         public override int TallPlants => -1;
         public override int Vines => TileID.CrimsonVines;
-        public override int Thorn => TileID.CrimsonThorns;
+        public override int Thorn => TileID.CorruptThorns;
 
         public override ushort DirtWall => WallID.Dirt;
         public override ushort DirtWallUnsafe => WallID.DirtUnsafe;

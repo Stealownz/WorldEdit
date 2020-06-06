@@ -25,7 +25,7 @@ namespace WorldEdit.Commands
 				if (!Main.tile[sign.x, sign.y].active()
                     || ((type != TileID.Signs)
 					&& (type != TileID.Tombstones)
-					&& (type != TileID.AnnouncementBox)))
+					/*&& (type != TileID.AnnouncementBox)*/))
 				{
 					Sign.KillSign(sign.x, sign.y);
 					signs++;
@@ -51,27 +51,27 @@ namespace WorldEdit.Commands
 				ushort type = Main.tile[chest.x, chest.y].type;
                 if (!Main.tile[chest.x, chest.y].active()
                     || ((type != TileID.Containers)
-					&& (type != TileID.Containers2)
+					//&& (type != TileID.Containers2)
 					&& (type != TileID.Dressers)))
 				{
 					Chest.DestroyChest(chest.x, chest.y);
 					chests++;
 				}
             }
-            for (int i = x; i <= x2; i++)
-            {
-                for (int j = y; j <= y2; j++)
-                {
-                    int ID = TELogicSensor.Find(i, j);
-                    if (ID == -1) { continue; }
-                    if (!Main.tile[i, j].active()
-                        || (Main.tile[i, j].type != TileID.LogicSensor))
-                    {
-                        TELogicSensor.Kill(i, j);
-                        sensors++;
-                    }
-                }
-            }
+            //for (int i = x; i <= x2; i++)
+            //{
+            //    for (int j = y; j <= y2; j++)
+            //    {
+            //        int ID = TELogicSensor.Find(i, j);
+            //        if (ID == -1) { continue; }
+            //        if (!Main.tile[i, j].active()
+            //            || (Main.tile[i, j].type != TileID.LogicSensor))
+            //        {
+            //            TELogicSensor.Kill(i, j);
+            //            sensors++;
+            //        }
+            //    }
+            //}
             for (int i = x; i <= x2; i++)
             {
                 for (int j = y; j <= y2; j++)

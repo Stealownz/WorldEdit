@@ -33,7 +33,7 @@ namespace WorldEdit.Commands
 
         public override void Execute()
         {
-            var clipboardPath = Tools.GetClipboardPath(plr.Account.ID);
+            var clipboardPath = Tools.GetClipboardPath(plr.User.ID);
 
             var data = Tools.LoadWorldData(clipboardPath);
 
@@ -93,12 +93,12 @@ namespace WorldEdit.Commands
                         tile.wire(data.Tiles[index1, index2].wire());
                         tile.wire2(data.Tiles[index1, index2].wire2());
                         tile.wire3(data.Tiles[index1, index2].wire3());
-                        tile.wire4(data.Tiles[index1, index2].wire4());
+                        //tile.wire4(data.Tiles[index1, index2].wire4());
                         tile.actuator(data.Tiles[index1, index2].actuator());
                         tile.inActive(data.Tiles[index1, index2].inActive());
                     }
 
-                    if (emptyTiles || tile.active() || (tile.wall != 0) || (tile.liquid != 0) || tile.wire() || tile.wire2() || tile.wire3() || tile.wire4())
+                    if (emptyTiles || tile.active() || (tile.wall != 0) || (tile.liquid != 0) || tile.wire() || tile.wire2() || tile.wire3() /*|| tile.wire4()*/)
                     {
                         if (!tilePaints)
                         { tile.color(Main.tile[i, j].color()); }
@@ -119,7 +119,7 @@ namespace WorldEdit.Commands
                             tile.wire(Main.tile[i, j].wire());
                             tile.wire2(Main.tile[i, j].wire2());
                             tile.wire3(Main.tile[i, j].wire3());
-                            tile.wire4(Main.tile[i, j].wire4());
+                            //tile.wire4(Main.tile[i, j].wire4());
                             tile.actuator(Main.tile[i, j].actuator());
                             tile.inActive(Main.tile[i, j].inActive());
                         }

@@ -74,8 +74,8 @@ namespace WorldEdit.Commands
                             sock.TileSections[i, j] = false;
             else
             {
-                NetMessage.SendData(10, -1, -1, null, left, top, w, h);
-                NetMessage.SendData(11, -1, -1, null, sX, sY, sX2, sY2);
+                NetMessage.SendData(10, -1, -1, string.Empty, left, top, w, h);
+                NetMessage.SendData(11, -1, -1, string.Empty, sX, sY, sX2, sY2);
             }
         }
 		public void SetTile(int i, int j, int tileType)

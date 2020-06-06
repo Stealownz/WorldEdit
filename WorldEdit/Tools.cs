@@ -144,11 +144,11 @@ namespace WorldEdit
                 try
                 {
                     var logicSensorCount = reader.ReadInt32();
-                    worldData.LogicSensors = new WorldSectionData.LogicSensorData[logicSensorCount];
-                    for (var i = 0; i < logicSensorCount; i++)
-                    {
-                        worldData.LogicSensors[i] = reader.ReadLogicSensor();
-                    }
+                    //worldData.LogicSensors = new WorldSectionData.LogicSensorData[logicSensorCount];
+                    //for (var i = 0; i < logicSensorCount; i++)
+                    //{
+                    //    worldData.LogicSensors[i] = reader.ReadLogicSensor();
+                    //}
 
                     var trainingDummyCount = reader.ReadInt32();
                     worldData.TrainingDummies = new WorldSectionData.TrainingDummyData[trainingDummyCount];
@@ -186,7 +186,7 @@ namespace WorldEdit
                     tile.frameY = reader.ReadInt16();
                 }
             }
-            tile.wall = reader.ReadUInt16();
+            tile.wall = (byte)reader.ReadUInt16();
             tile.liquid = reader.ReadByte();
             return tile;
         }
@@ -232,15 +232,15 @@ namespace WorldEdit
             };
         }
 
-        private static WorldSectionData.LogicSensorData ReadLogicSensor(this BinaryReader reader)
-        {
-            return new WorldSectionData.LogicSensorData
-            {
-                X = reader.ReadInt32(),
-                Y = reader.ReadInt32(),
-                Type = (TELogicSensor.LogicCheckType)reader.ReadInt32()
-            };
-        }
+        //private static WorldSectionData.LogicSensorData ReadLogicSensor(this BinaryReader reader)
+        //{
+        //    return new WorldSectionData.LogicSensorData
+        //    {
+        //        X = reader.ReadInt32(),
+        //        Y = reader.ReadInt32(),
+        //        Type = (TELogicSensor.LogicCheckType)reader.ReadInt32()
+        //    };
+        //}
 
         private static WorldSectionData.TrainingDummyData ReadTrainingDummy(this BinaryReader reader)
         {
@@ -297,8 +297,8 @@ namespace WorldEdit
                 {
                     if (TEItemFrame.Find(i, j) != -1)
                     { TEItemFrame.Kill(i, j); }
-                    if (TELogicSensor.Find(i, j) != -1)
-                    { TELogicSensor.Kill(i, j); }
+                    //if (TELogicSensor.Find(i, j) != -1)
+                    //{ TELogicSensor.Kill(i, j); }
                     if (TETrainingDummy.Find(i, j) != -1)
                     { TETrainingDummy.Kill(i, j); }
                 }
@@ -372,15 +372,15 @@ namespace WorldEdit
 				}
             }
 
-            foreach (var logicSensor in Data.LogicSensors)
-            {
-                var id = TELogicSensor.Place(logicSensor.X + x, logicSensor.Y + y);
-                if (id == -1) { continue; }
-                var sensor = (TELogicSensor)TileEntity.ByID[id];
-                if (!InMapBoundaries(sensor.Position.X, sensor.Position.Y))
-                { continue; }
-                sensor.logicCheck = logicSensor.Type;
-            }
+            //foreach (var logicSensor in Data.LogicSensors)
+            //{
+            //    var id = TELogicSensor.Place(logicSensor.X + x, logicSensor.Y + y);
+            //    if (id == -1) { continue; }
+            //    var sensor = (TELogicSensor)TileEntity.ByID[id];
+            //    if (!InMapBoundaries(sensor.Position.X, sensor.Position.Y))
+            //    { continue; }
+            //    sensor.logicCheck = logicSensor.Type;
+            //}
 
             foreach (var trainingDummy in Data.TrainingDummies)
             {
@@ -401,25 +401,25 @@ namespace WorldEdit
                 return;
 
 			if (WorldEdit.Database.GetSqlType() == SqlType.Mysql)
-				WorldEdit.Database.Query("INSERT IGNORE INTO WorldEdit VALUES (@0, -1, -1)", plr.Account.ID);
+				WorldEdit.Database.Query("INSERT IGNORE INTO WorldEdit VALUES (@0, -1, -1)", plr.User.ID);
 			else
-				WorldEdit.Database.Query("INSERT OR IGNORE INTO WorldEdit VALUES (@0, 0, 0)", plr.Account.ID);
-			WorldEdit.Database.Query("UPDATE WorldEdit SET RedoLevel = -1 WHERE Account = @0", plr.Account.ID);
-			WorldEdit.Database.Query("UPDATE WorldEdit SET UndoLevel = UndoLevel + 1 WHERE Account = @0", plr.Account.ID);
+				WorldEdit.Database.Query("INSERT OR IGNORE INTO WorldEdit VALUES (@0, 0, 0)", plr.User.ID);
+			WorldEdit.Database.Query("UPDATE WorldEdit SET RedoLevel = -1 WHERE Account = @0", plr.User.ID);
+			WorldEdit.Database.Query("UPDATE WorldEdit SET UndoLevel = UndoLevel + 1 WHERE Account = @0", plr.User.ID);
 
 			int undoLevel = 0;
-			using (var reader = WorldEdit.Database.QueryReader("SELECT UndoLevel FROM WorldEdit WHERE Account = @0", plr.Account.ID))
+			using (var reader = WorldEdit.Database.QueryReader("SELECT UndoLevel FROM WorldEdit WHERE Account = @0", plr.User.ID))
 			{
 				if (reader.Read())
 					undoLevel = reader.Get<int>("UndoLevel");
 			}
 
-			string path = Path.Combine("worldedit", string.Format("undo-{0}-{1}.dat", plr.Account.ID, undoLevel));
+			string path = Path.Combine("worldedit", string.Format("undo-{0}-{1}.dat", plr.User.ID, undoLevel));
 			SaveWorldSection(x, y, x2, y2, path);
 
-			foreach (string fileName in Directory.EnumerateFiles("worldedit", string.Format("redo-{0}-*.dat", plr.Account.ID)))
+			foreach (string fileName in Directory.EnumerateFiles("worldedit", string.Format("redo-{0}-*.dat", plr.User.ID)))
 				File.Delete(fileName);
-			File.Delete(Path.Combine("worldedit", string.Format("undo-{0}-{1}.dat", plr.Account.ID, undoLevel - MAX_UNDOS)));
+			File.Delete(Path.Combine("worldedit", string.Format("undo-{0}-{1}.dat", plr.User.ID, undoLevel - MAX_UNDOS)));
 		}
 
 		public static bool Redo(int accountID)
@@ -529,7 +529,7 @@ namespace WorldEdit
 				Chests = new List<WorldSectionData.ChestData>(),
 				Signs = new List<WorldSectionData.SignData>(),
 				ItemFrames = new List<WorldSectionData.ItemFrameData>(),
-                LogicSensors = new List<WorldSectionData.LogicSensorData>(),
+                //LogicSensors = new List<WorldSectionData.LogicSensorData>(),
                 TrainingDummies = new List<WorldSectionData.TrainingDummyData>()
             };
 

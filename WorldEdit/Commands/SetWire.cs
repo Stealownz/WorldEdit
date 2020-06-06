@@ -73,22 +73,22 @@ namespace WorldEdit.Commands
 					ResetSection();
 					plr.SendSuccessMessage("Set wire 3. ({0})", edits);
 					return;
-				case 4:
-					for (int i = x; i <= x2; i++)
-					{
-						for (int j = y; j <= y2; j++)
-						{
-							var tile = Main.tile[i, j];
-							if (tile.wire4() != state && select(i, j, plr) && expression.Evaluate(tile))
-							{
-								tile.wire4(state);
-								edits++;
-							}
-						}
-					}
-					ResetSection();
-					plr.SendSuccessMessage("Set wire 4. ({0})", edits);
-					return;
+				//case 4:
+				//	for (int i = x; i <= x2; i++)
+				//	{
+				//		for (int j = y; j <= y2; j++)
+				//		{
+				//			var tile = Main.tile[i, j];
+				//			if (tile.wire4() != state && select(i, j, plr) && expression.Evaluate(tile))
+				//			{
+				//				tile.wire4(state);
+				//				edits++;
+				//			}
+				//		}
+				//	}
+				//	ResetSection();
+				//	plr.SendSuccessMessage("Set wire 4. ({0})", edits);
+				//	return;
 			}
 		}
 	}

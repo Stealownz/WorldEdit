@@ -79,7 +79,7 @@ namespace WorldEdit.Commands.Biomes
                 int index = Array.FindIndex(Walls, w => w == Tile.wall);
                 if (index >= 0 && ToBiome.Walls[index] != 0)
                 {
-                    Tile.wall = ToBiome.Walls[index];
+                    Tile.wall = (byte)ToBiome.Walls[index];
                     edited = true;
                 }
             }

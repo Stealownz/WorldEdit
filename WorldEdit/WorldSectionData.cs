@@ -19,7 +19,7 @@ namespace WorldEdit
 
 		public IList<ItemFrameData> ItemFrames;
 
-        public IList<LogicSensorData> LogicSensors;
+        //public IList<LogicSensorData> LogicSensors;
 
         public IList<TrainingDummyData> TrainingDummies;
 
@@ -41,7 +41,7 @@ namespace WorldEdit
 			Signs = new SignData[0];
 			Chests = new ChestData[0];
 			ItemFrames = new ItemFrameData[0];
-            LogicSensors = new LogicSensorData[0];
+            //LogicSensors = new LogicSensorData[0];
             TrainingDummies = new TrainingDummyData[0];
             Tiles = new ITile[width, height];
 		}
@@ -63,7 +63,7 @@ namespace WorldEdit
 			switch (tile.type)
 			{
 				case TileID.Signs:
-				case TileID.AnnouncementBox:
+				//case TileID.AnnouncementBox:
 				case TileID.Tombstones:
 					if (tile.frameX % 36 == 0 && tile.frameY == 0)
 					{
@@ -116,21 +116,21 @@ namespace WorldEdit
 						}
 					}
                     break;
-                case TileID.LogicSensor:
-                    {
-                        var id = TELogicSensor.Find(actualX, actualY);
-                        if (id != -1)
-                        {
-                            var sensor = (TELogicSensor)TileEntity.ByID[id];
-                            LogicSensors.Add(new LogicSensorData
-                            {
-                                X = x,
-                                Y = y,
-                                Type = sensor.logicCheck
-                            });
-                        }
-                        break;
-                    }
+                //case TileID.LogicSensor:
+                //    {
+                //        var id = TELogicSensor.Find(actualX, actualY);
+                //        if (id != -1)
+                //        {
+                //            var sensor = (TELogicSensor)TileEntity.ByID[id];
+                //            LogicSensors.Add(new LogicSensorData
+                //            {
+                //                X = x,
+                //                Y = y,
+                //                Type = sensor.logicCheck
+                //            });
+                //        }
+                //        break;
+                //    }
                 case TileID.TargetDummy:
                     if (tile.frameX % 36 == 0 && tile.frameY == 0)
                     {
@@ -195,13 +195,13 @@ namespace WorldEdit
 				writer.Write(itemFrame.Item.PrefixId);
 			}
 
-            writer.Write(LogicSensors.Count);
-            foreach (var logicSensor in LogicSensors)
-            {
-                writer.Write(logicSensor.X);
-                writer.Write(logicSensor.Y);
-                writer.Write((int)logicSensor.Type);
-            }
+            //writer.Write(LogicSensors.Count);
+            //foreach (var logicSensor in LogicSensors)
+            //{
+            //    writer.Write(logicSensor.X);
+            //    writer.Write(logicSensor.Y);
+            //    writer.Write((int)logicSensor.Type);
+            //}
 
             writer.Write(TrainingDummies.Count);
             foreach (var targetDummy in TrainingDummies)
@@ -243,14 +243,14 @@ namespace WorldEdit
             public int Y;
         }
 
-        public struct LogicSensorData
-        {
-            public int X;
+        //public struct LogicSensorData
+        //{
+        //    public int X;
 
-            public int Y;
+        //    public int Y;
 
-            public TELogicSensor.LogicCheckType Type;
-        }
+        //    public TELogicSensor.LogicCheckType Type;
+        //}
 
 		public struct ItemFrameData
 		{

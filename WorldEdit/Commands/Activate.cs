@@ -30,7 +30,7 @@ namespace WorldEdit.Commands
                     {
                         if ((Main.tile[i, j].type == TileID.Signs
                             || Main.tile[i, j].type == TileID.Tombstones
-                            || Main.tile[i, j].type == TileID.AnnouncementBox)
+                            /*|| Main.tile[i, j].type == TileID.AnnouncementBox*/)
                             && Main.tile[i, j].frameX % 36 == 0
                             && Main.tile[i, j].frameY == 0
                             && Sign.ReadSign(i, j, false) == -1)
@@ -58,7 +58,7 @@ namespace WorldEdit.Commands
                     for (int j = y; j <= y2; j++)
                     {
                         if ((Main.tile[i, j].type == TileID.Containers
-                            || Main.tile[i, j].type == TileID.Containers2
+                            //|| Main.tile[i, j].type == TileID.Containers2
                             || Main.tile[i, j].type == TileID.Dressers)
                             && Main.tile[i, j].frameX % 36 == 0
                             && Main.tile[i, j].frameY == 0
@@ -106,32 +106,32 @@ namespace WorldEdit.Commands
             #endregion
             #region LogicSensors
 
-            if ((_action == 255) || (_action == 3))
-            {
-                int success = 0, failure = 0;
-                for (int i = x; i <= x2; i++)
-                {
-                    for (int j = y; j <= y2; j++)
-                    {
-                        if (Main.tile[i, j].type == TileID.LogicSensor
-                            && TELogicSensor.Find(i, j) == -1)
-                        {
-                            int sensor = TELogicSensor.Place(i, j);
-                            if (sensor == -1) failure++;
-                            else
-                            {
-                                ((TELogicSensor)TELogicSensor.ByID[sensor]).logicCheck =
-                                    (TELogicSensor.LogicCheckType)((Main.tile[i, j].frameY / 18) + 1);
-                                success++;
-                            }
-                        }
-                    }
-                }
-                if (success > 0 || failure > 0)
-                    plr.SendSuccessMessage("Activated logic sensors. ({0}){1}", success,
-                        failure > 0 ? " Failed to activate logic sensors. (" + failure + ")" : "");
-                else noMsg++;
-            }
+            //if ((_action == 255) || (_action == 3))
+            //{
+            //    int success = 0, failure = 0;
+            //    for (int i = x; i <= x2; i++)
+            //    {
+            //        for (int j = y; j <= y2; j++)
+            //        {
+            //            if (Main.tile[i, j].type == TileID.LogicSensor
+            //                && TELogicSensor.Find(i, j) == -1)
+            //            {
+            //                int sensor = TELogicSensor.Place(i, j);
+            //                if (sensor == -1) failure++;
+            //                else
+            //                {
+            //                    ((TELogicSensor)TELogicSensor.ByID[sensor]).logicCheck =
+            //                        (TELogicSensor.LogicCheckType)((Main.tile[i, j].frameY / 18) + 1);
+            //                    success++;
+            //                }
+            //            }
+            //        }
+            //    }
+            //    if (success > 0 || failure > 0)
+            //        plr.SendSuccessMessage("Activated logic sensors. ({0}){1}", success,
+            //            failure > 0 ? " Failed to activate logic sensors. (" + failure + ")" : "");
+            //    else noMsg++;
+            //}
 
             #endregion
             #region TargetDummies
