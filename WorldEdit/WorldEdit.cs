@@ -613,6 +613,7 @@ namespace WorldEdit
 					|| (!Main.tile[i + 1, j + 1].active()) || (!Main.tile[i - 1, j - 1].active())
 					|| (!Main.tile[i - 1, j + 1].active()) || (!Main.tile[i + 1, j - 1].active())));
 			});
+			Selections.Add("random", (i, j, plr) => Main.rand.NextDouble() >= 0.5);
 			#endregion
 			#region Tiles
 			Tiles.Add("air", -1);
