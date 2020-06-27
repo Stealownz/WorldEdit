@@ -4,7 +4,6 @@ namespace WorldEdit.Commands.Biomes
     public class Crimson : Biome
     {
         public override int Dirt => TileID.Dirt;
-
         public override int[] Grass => new int[] { TileID.CrimsonGrass };
         public override int Stone => TileID.Crimstone;
         public override int Ice => TileID.FleshIce;
