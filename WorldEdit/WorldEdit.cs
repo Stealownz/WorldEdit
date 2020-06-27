@@ -623,9 +623,9 @@ namespace WorldEdit
 
 			foreach (var fi in typeof(TileID).GetFields())
 			{
-        			if (!fi.IsLiteral || fi.Name == "Count") {
-          				continue;
-        			}
+				if (fi.FieldType != typeof(ushort) || !fi.IsLiteral || fi.Name == "Count") {
+					continue;
+				}
 
 				string name = fi.Name;
 				var sb = new StringBuilder();
@@ -644,10 +644,10 @@ namespace WorldEdit
 
       			foreach (var fi in typeof(WallID).GetFields())
 			{
-        			if (!fi.IsLiteral || fi.Name == "None" || fi.Name == "Count")
-        			{
-         				continue;
-        			}
+				if (fi.FieldType != typeof(ushort) || !fi.IsLiteral || fi.Name == "None" || fi.Name == "Count")
+				{
+					continue;
+				}
 
 				string name = fi.Name;
 				var sb = new StringBuilder();
