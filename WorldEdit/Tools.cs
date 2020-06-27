@@ -51,7 +51,7 @@ namespace WorldEdit
 
         public static string GetClipboardPath(int accountID)
         {
-            return Path.Combine(WorldEdit.WorldEditFolderName, string.Format("clipboard-{0}.dat", accountID));
+            return Path.Combine(WorldEdit.WorldEditFolderName, string.Format("clipboard-{0}-{1}.dat", Main.worldID, accountID));
         }
         public static bool IsCorrectName(string name)
         {
@@ -641,12 +641,12 @@ namespace WorldEdit
 					undoLevel = reader.Get<int>("UndoLevel");
 			}
 
-			string path = Path.Combine("worldedit", string.Format("undo-{0}-{1}.dat", plr.Account.ID, undoLevel));
+			string path = Path.Combine("worldedit", string.Format("undo-{0}-{1}-{2}.dat", Main.worldID, plr.Account.ID, undoLevel));
 			SaveWorldSection(x, y, x2, y2, path);
 
-			foreach (string fileName in Directory.EnumerateFiles("worldedit", string.Format("redo-{0}-*.dat", plr.Account.ID)))
+			foreach (string fileName in Directory.EnumerateFiles("worldedit", string.Format("redo-{0}-{1}-*.dat", Main.worldID, plr.Account.ID)))
 				File.Delete(fileName);
-			File.Delete(Path.Combine("worldedit", string.Format("undo-{0}-{1}.dat", plr.Account.ID, undoLevel - MAX_UNDOS)));
+			File.Delete(Path.Combine("worldedit", string.Format("undo-{0}-{1}-{2}.dat", Main.worldID, plr.Account.ID, undoLevel - MAX_UNDOS)));
 		}
 
 		public static bool Redo(int accountID)
@@ -670,13 +670,13 @@ namespace WorldEdit
 			if (redoLevel < -1)
 				return false;
 
-			string redoPath = Path.Combine("worldedit", string.Format("redo-{0}-{1}.dat", accountID, redoLevel + 1));
+			string redoPath = Path.Combine("worldedit", string.Format("redo-{0}-{1}-{2}.dat", Main.worldID, accountID, redoLevel + 1));
 			WorldEdit.Database.Query("UPDATE WorldEdit SET RedoLevel = @0 WHERE Account = @1", redoLevel, accountID);
 
 			if (!File.Exists(redoPath))
 				return false;
 
-			string undoPath = Path.Combine("worldedit", string.Format("undo-{0}-{1}.dat", accountID, undoLevel));
+			string undoPath = Path.Combine("worldedit", string.Format("undo-{0}-{1}-{2}.dat", Main.worldID, accountID, undoLevel));
 			WorldEdit.Database.Query("UPDATE WorldEdit SET UndoLevel = @0 WHERE Account = @1", undoLevel, accountID);
 
             Rectangle size = ReadSize(redoPath);
@@ -786,13 +786,13 @@ namespace WorldEdit
 			if (undoLevel < -1)
 				return false;
 
-			string undoPath = Path.Combine("worldedit", string.Format("undo-{0}-{1}.dat", accountID, undoLevel + 1));
+			string undoPath = Path.Combine("worldedit", string.Format("undo-{0}-{1}-{2}.dat", Main.worldID, accountID, undoLevel + 1));
 			WorldEdit.Database.Query("UPDATE WorldEdit SET UndoLevel = @0 WHERE Account = @1", undoLevel, accountID);
 
 			if (!File.Exists(undoPath))
 				return false;
 
-			string redoPath = Path.Combine("worldedit", string.Format("redo-{0}-{1}.dat", accountID, redoLevel));
+			string redoPath = Path.Combine("worldedit", string.Format("redo-{0}-{1}-{2}.dat", Main.worldID, accountID, redoLevel));
 			WorldEdit.Database.Query("UPDATE WorldEdit SET RedoLevel = @0 WHERE Account = @1", redoLevel, accountID);
 
             Rectangle size = ReadSize(undoPath);
