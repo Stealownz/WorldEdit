@@ -125,9 +125,9 @@
     <Compile Include="WorldSectionData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OTAPI.dll" />
-    <Content Include="TerrariaServer.exe" />
-    <Content Include="TShockAPI.dll" />
+    <Content Include="../References/OTAPI.dll" />
+    <Content Include="../References/TerrariaServer.exe" />
+    <Content Include="../References/TShockAPI.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
