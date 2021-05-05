@@ -66,7 +66,7 @@ namespace WorldEdit.Commands
                     if (i < 0 || j < 0 || i >= Main.maxTilesX || j >= Main.maxTilesY ||
 						expression != null && !expression.Evaluate(mode_MainBlocks
                                                 ? Main.tile[i, j]
-                                                : data.Tiles[index1, index2]))
+                                                : data.Tiles[index1, index2], i, j))
 					{
 						continue;
 					}

@@ -13,7 +13,7 @@ namespace WorldEdit.Commands
 			: base(x, y, x2, y2, magicWand, plr)
 		{
 			this.tileType = tileType;
-			this.expression = expression ?? new TestExpression(new Test(t => true));
+			this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
 		}
 
 		public override void Execute()

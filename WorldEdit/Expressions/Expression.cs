@@ -7,6 +7,6 @@ namespace WorldEdit.Expressions
 		public Expression Left;
 		public Expression Right;
 
-		public abstract bool Evaluate(ITile tile);
+		public abstract bool Evaluate(ITile tile, int x, int y);
 	}
 }

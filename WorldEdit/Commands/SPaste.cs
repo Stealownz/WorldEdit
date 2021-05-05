@@ -76,7 +76,7 @@ namespace WorldEdit.Commands
                     var index2 = j - y;
 
                     if (i < 0 || j < 0 || i >= Main.maxTilesX || j >= Main.maxTilesY ||
-                        expression != null && !expression.Evaluate(data.Tiles[index1, index2]))
+                        expression != null && !expression.Evaluate(data.Tiles[index1, index2], i, j))
                     {
                         continue;
                     }

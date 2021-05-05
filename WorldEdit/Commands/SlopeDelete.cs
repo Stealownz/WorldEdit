@@ -13,7 +13,7 @@ namespace WorldEdit.Commands
 			: base(x, y, x2, y2, magicWand, plr)
 		{
 			this.slope = (byte)slope;
-			this.expression = expression ?? new TestExpression(new Test(t => true));
+			this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
 		}
 
 		public override void Execute()
@@ -28,7 +28,7 @@ namespace WorldEdit.Commands
 					for (int j = y; j <= y2; j++)
 					{
 						var tile = Main.tile[i, j];
-						if (tile.active() && select(i, j, plr) && expression.Evaluate(tile) && magicWand.InSelection(i, j))
+						if (tile.active() && select(i, j, plr) && expression.Evaluate(tile, i ,j) && magicWand.InSelection(i, j))
 						{
 							tile.slope(0);
 							tile.halfBrick(false);
@@ -46,7 +46,7 @@ namespace WorldEdit.Commands
 						for (int j = y; j <= y2; j++)
 						{
 							var tile = Main.tile[i, j];
-							if (tile.active() && select(i, j, plr) && expression.Evaluate(tile) && (tile.slope() == 0) && tile.halfBrick())
+							if (tile.active() && select(i, j, plr) && expression.Evaluate(tile, i ,j) && (tile.slope() == 0) && tile.halfBrick())
 							{
 								tile.slope(0);
 								tile.halfBrick(false);
@@ -63,7 +63,7 @@ namespace WorldEdit.Commands
 						for (int j = y; j <= y2; j++)
 						{
 							var tile = Main.tile[i, j];
-							if (tile.active() && select(i, j, plr) && expression.Evaluate(tile) && (tile.slope() == slope))
+							if (tile.active() && select(i, j, plr) && expression.Evaluate(tile, i ,j) && (tile.slope() == slope))
 							{
 								tile.slope(0);
 								edits++;

@@ -2,7 +2,7 @@
 
 namespace WorldEdit.Expressions
 {
-	public delegate bool Test(ITile tile);
+	public delegate bool Test(ITile tile, int x = -1, int y = -1);
 
 	public sealed class TestExpression : Expression
 	{
@@ -13,9 +13,9 @@ namespace WorldEdit.Expressions
 			Test = test;
 		}
 
-		public override bool Evaluate(ITile tile)
+		public override bool Evaluate(ITile tile, int x, int y)
 		{
-			return Test(tile);
+			return Test(tile, x, y);
 		}
 	}
 }

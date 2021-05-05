@@ -10,9 +10,9 @@ namespace WorldEdit.Expressions
 			Right = right;
 		}
 
-		public override bool Evaluate(ITile tile)
+		public override bool Evaluate(ITile tile, int x, int y)
 		{
-			return Left.Evaluate(tile) && Right.Evaluate(tile);
+			return Left.Evaluate(tile, x, y) && Right.Evaluate(tile, x, y);
 		}
 	}
 }

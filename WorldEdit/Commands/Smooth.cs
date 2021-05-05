@@ -11,7 +11,7 @@ namespace WorldEdit.Commands
 		public Smooth(int x, int y, int x2, int y2, MagicWand magicWand, TSPlayer plr, Expression expression)
 			: base(x, y, x2, y2, magicWand, plr)
 		{
-			this.expression = expression ?? new TestExpression(new Test(t => true));
+			this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
 		}
 
 		public override void Execute()
@@ -47,7 +47,7 @@ namespace WorldEdit.Commands
                                     ? Main.tile[i, j + 1].active()
                                     : magicWand.InSelection(i, j + 1);
 
-                    if (XY && slope && expression.Evaluate(Main.tile[i, j]) && magicWand.InSelection(i, j))
+                    if (XY && slope && expression.Evaluate(Main.tile[i, j], i, j) && magicWand.InSelection(i, j))
 					{
 						if (mXY && XmY && !XpY && !pXY)
 						{

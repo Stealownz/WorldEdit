@@ -12,7 +12,7 @@ namespace WorldEdit.Commands
 		public SetWall(int x, int y, int x2, int y2, MagicWand magicWand, TSPlayer plr, int wallType, Expression expression)
 			: base(x, y, x2, y2, magicWand, plr)
 		{
-			this.expression = expression ?? new TestExpression(new Test(t => true));
+			this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
 			this.wallType = wallType;
 		}
 

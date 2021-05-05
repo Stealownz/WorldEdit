@@ -19,7 +19,7 @@ namespace WorldEdit.Commands
 			this.tileType = tileType;
 			this.color = color;
 			this.active = active;
-			this.expression = expression ?? new TestExpression(new Test(t => true));
+			this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
 		}
 
 		public override void Execute()
@@ -54,7 +54,7 @@ namespace WorldEdit.Commands
 					bool XmY = Main.tile[i, j - 1].active();
 					bool XpY = Main.tile[i, j + 1].active();
 
-					if (XY && expression.Evaluate(Main.tile[i, j]) && magicWand.InSelection(i, j))
+					if (XY && expression.Evaluate(Main.tile[i, j], i, j) && magicWand.InSelection(i, j))
 					{
 						if (!mXmY)
 						{

@@ -16,7 +16,7 @@ namespace WorldEdit.Commands
         {
             this.from = from;
             this.to = to;
-            this.expression = expression ?? new TestExpression(new Test(t => true));
+            this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
         }
 
         public override void Execute()

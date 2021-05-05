@@ -13,7 +13,7 @@ namespace WorldEdit.Commands
             : base(x, y, x2, y2, magicWand, plr)
         {
             this.inactiveType = inacType;
-            this.expression = expression ?? new TestExpression(new Test(t => true));
+            this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
         }
 
         public override void Execute()
@@ -29,7 +29,7 @@ namespace WorldEdit.Commands
                         for (int j = y; j <= y2; j++)
                         {
                             var tile = Main.tile[i, j];
-                            if (tile.active() && !tile.inActive() && select(i, j, plr) && expression.Evaluate(tile) && magicWand.InSelection(i, j))
+                            if (tile.active() && !tile.inActive() && select(i, j, plr) && expression.Evaluate(tile, i ,j) && magicWand.InSelection(i, j))
                             {
                                 tile.inActive(true);
                                 edits++;
@@ -45,7 +45,7 @@ namespace WorldEdit.Commands
                         for (int j = y; j <= y2; j++)
                         {
                             var tile = Main.tile[i, j];
-                            if (tile.inActive() && select(i, j, plr) && expression.Evaluate(tile))
+                            if (tile.inActive() && select(i, j, plr) && expression.Evaluate(tile, i ,j))
                             {
                                 tile.inActive(false);
                                 edits++;
@@ -61,7 +61,7 @@ namespace WorldEdit.Commands
                         for (int j = y; j <= y2; j++)
                         {
                             var tile = Main.tile[i, j];
-                            if (tile.active() && select(i, j, plr) && expression.Evaluate(tile))
+                            if (tile.active() && select(i, j, plr) && expression.Evaluate(tile, i ,j))
                             {
                                 tile.inActive(!tile.inActive());
                                 edits++;

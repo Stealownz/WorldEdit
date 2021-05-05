@@ -17,7 +17,7 @@ namespace WorldEdit.Commands
 		{
 			this.wallType = wallType;
 			this.color = color;
-			this.expression = expression ?? new TestExpression(new Test(t => true));
+			this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
 		}
 
 		public override void Execute()
@@ -52,7 +52,7 @@ namespace WorldEdit.Commands
 					bool XmY = Main.tile[i, j - 1].wall == 0;
 					bool XpY = Main.tile[i, j + 1].wall == 0;
 
-					if (XY && expression.Evaluate(Main.tile[i, j]) && magicWand.InSelection(i, j))
+					if (XY && expression.Evaluate(Main.tile[i, j], i, j) && magicWand.InSelection(i, j))
 					{
 						if (mXmY)
 						{

@@ -21,7 +21,7 @@ namespace WorldEdit.Commands
             int materialType, Expression expression)
             : base(x, y, x2, y2, magicWand, plr, false)
         {
-            this.expression = expression ?? new TestExpression(new Test(t => true));
+            this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
             this.shapeType = shapeType;
             this.rotateType = rotateType;
             this.flipType = flipType;

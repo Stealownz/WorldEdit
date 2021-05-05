@@ -17,7 +17,7 @@ namespace WorldEdit.Commands
         {
             this.down = down;
             this.right = right;
-            this.expression = expression ?? new TestExpression(new Test(t => true));
+            this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
         }
 
         public override void Execute()
@@ -46,7 +46,7 @@ namespace WorldEdit.Commands
                 for (int j = y; j <= y2; j++)
                 {
                     if (magicWand.InSelection(i, j)
-                        && expression.Evaluate(Main.tile[i, j]))
+                        && expression.Evaluate(Main.tile[i, j], i, j))
                     {
                         Main.tile[i, j] = new Tile();
                         edits++;
@@ -63,7 +63,7 @@ namespace WorldEdit.Commands
 
                     if (i < 0 || j < 0 || i >= Main.maxTilesX || j >= Main.maxTilesY
                         || !magicWand.InSelection(i - right, j - down)
-                        || !expression.Evaluate(data.Tiles[index1, index2]))
+                        || !expression.Evaluate(data.Tiles[index1, index2], i, j))
                     { continue; }
 
                     Main.tile[i, j] = data.Tiles[index1, index2];

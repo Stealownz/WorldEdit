@@ -13,7 +13,7 @@ namespace WorldEdit.Commands
 			: base(x, y, x2, y2, magicWand, plr)
 		{
 			this.color = color;
-			this.expression = expression ?? new TestExpression(new Test(t => true));
+			this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
 		}
 
 		public override void Execute()
@@ -26,7 +26,7 @@ namespace WorldEdit.Commands
 				for (int j = y; j <= y2; j++)
 				{
 					var tile = Main.tile[i, j];
-					if (tile.wall > 0 && tile.wallColor() != color && select(i, j, plr) && expression.Evaluate(tile) && magicWand.InSelection(i, j))
+					if (tile.wall > 0 && tile.wallColor() != color && select(i, j, plr) && expression.Evaluate(tile, i ,j) && magicWand.InSelection(i, j))
 					{
 						tile.wallColor((byte)color);
 						edits++;

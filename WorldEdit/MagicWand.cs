@@ -27,7 +27,7 @@ namespace WorldEdit
             MagicWand = new MagicWand();
             if (!Tools.InMapBoundaries(X, Y) || (Expression == null))
             { return false; }
-            if (!Expression.Evaluate(Main.tile[X, Y]))
+            if (!Expression.Evaluate(Main.tile[X, Y], X, Y))
             { return false; }
             short x = (short)X, y = (short)Y;
             List<WEPoint> WEPoints = new List<WEPoint>() { new WEPoint(x, y) };
@@ -47,7 +47,7 @@ namespace WorldEdit
                 {
                     if (Tools.InMapBoundaries(p.X, p.Y) && !was[p.X, p.Y])
                     {
-                        if (Expression.Evaluate(Main.tile[p.X, p.Y]))
+                        if (Expression.Evaluate(Main.tile[p.X, p.Y], p.X, p.Y))
                         {
                             WEPoints.Add(p);
                             count++;

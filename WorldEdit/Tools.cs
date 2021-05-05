@@ -813,10 +813,10 @@ namespace WorldEdit
                  || ((type == -2) && ((tile.liquid == 0) || (tile.liquidType() != 1)))
                  || ((type == -3) && ((tile.liquid == 0) || (tile.liquidType() != 2)))
                  || ((type == -4) && ((tile.liquid == 0) || (tile.liquidType() != 0))))
-                 && selection(x, y, player) && expression.Evaluate(tile)
+                 && selection(x, y, player) && expression.Evaluate(tile, x ,y)
                  && magicWand.InSelection(x, y))
                 : ((tile.wall != type) && selection(x, y, player)
-                 && expression.Evaluate(tile) && magicWand.InSelection(x, y));
+                 && expression.Evaluate(tile, x, y) && magicWand.InSelection(x, y));
 
         public static WEPoint[] CreateLine(int x1, int y1, int x2, int y2)
         {

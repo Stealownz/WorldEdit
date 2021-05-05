@@ -13,7 +13,7 @@ namespace WorldEdit.Commands
             : base(x, y, x2, y2, magicWand, plr)
         {
             this.remove = remove;
-            this.expression = expression ?? new TestExpression(new Test(t => true));
+            this.expression = expression ?? new TestExpression(new Test((t,h,k) => true));
         }
 
         public override void Execute()
@@ -27,7 +27,7 @@ namespace WorldEdit.Commands
                 {
                     var tile = Main.tile[i, j];
                     if (tile.active() && (remove ? tile.actuator() : !tile.actuator())
-                        && select(i, j, plr) && expression.Evaluate(tile) && magicWand.InSelection(i, j))
+                        && select(i, j, plr) && expression.Evaluate(tile, i ,j) && magicWand.InSelection(i, j))
                     {
                         tile.actuator(!remove);
                         edits++;
