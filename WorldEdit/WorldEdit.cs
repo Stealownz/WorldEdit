@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using Microsoft.Xna.Framework;
-using Mono.Data.Sqlite;
+using Microsoft.Data.Sqlite;
 using MySql.Data.MySqlClient;
 using Terraria;
 using Terraria.ID;

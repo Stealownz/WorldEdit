@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 11
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldEdit", "WorldEdit\WorldEdit.csproj", "{A3D1291E-B52B-4FCB-B1B0-EA5F482B37CD}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldEdit", "WorldEdit\WorldEdit.csproj", "{A3D1291E-B52B-4FCB-B1B0-EA5F482B37CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6EF8A736-F48E-48F1-A851-0A3097447326}
 	EndGlobalSection
 EndGlobal
