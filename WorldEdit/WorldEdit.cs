@@ -520,7 +520,7 @@ namespace WorldEdit
 					break;
 				case "sqlite":
 					string sql = Path.Combine(TShock.SavePath, "worldedit.sqlite");
-					Database = new SqliteConnection(string.Format("uri=file://{0},Version=3", sql));
+					Database = new SqliteConnection(string.Format("Data Source={0}", sql));
 					break;
 			}
 
